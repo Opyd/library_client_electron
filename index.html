@@ -75,6 +75,130 @@
                 Haslo_uzytkownika VARCHAR(30) NOT NULL,
                 PRIMARY KEY(ID_uzytkownika)
             );
+            BEGIN;
+
+
+CREATE TABLE IF NOT EXISTS album
+(
+    id_albumu integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    tytul_albumu character varying(50) COLLATE pg_catalog."default",
+    id_wydawcy integer,
+    id_kraj_pochodzenia integer,
+    id_gatunku integer,
+    data_wydania timestamp without time zone
+);
+
+CREATE TABLE IF NOT EXISTS gatunek
+(
+    id_gatunku integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nazwa_gatunku character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT gatunek_pkey PRIMARY KEY (id_gatunku)
+);
+
+CREATE TABLE IF NOT EXISTS kraj_pochodzenia
+(
+    id_kraju integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nazwa character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT kraj_pochodzenia_pkey PRIMARY KEY (id_kraju)
+);
+
+CREATE TABLE IF NOT EXISTS lista_uzytkownika
+(
+    id_listy integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id_utworu integer,
+    CONSTRAINT lista_uzytkownika_pkey PRIMARY KEY (id_listy)
+);
+
+CREATE TABLE IF NOT EXISTS utwor
+(
+    id_utworu integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id_autora integer,
+    id_album integer,
+    tytul_utworu character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    czas_trwania integer,
+    CONSTRAINT utwor_pkey PRIMARY KEY (id_utworu)
+);
+
+CREATE TABLE IF NOT EXISTS uzytkownik
+(
+    id_uzytkownika integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id_listy_uzytkownika integer,
+    login_uzytkownika character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    haslo_uzytkownika character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT uzytkownik_pkey PRIMARY KEY (id_uzytkownika)
+);
+
+CREATE TABLE IF NOT EXISTS wydawca
+(
+    id_wydawcy integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nazwa_wydawcy character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT wydawca_pkey PRIMARY KEY (id_wydawcy)
+);
+
+CREATE TABLE IF NOT EXISTS wykonawca
+(
+    id_wykonawcy integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nazwa_wykonawcy character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    opis character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT wykonawca_pkey PRIMARY KEY (id_wykonawcy)
+);
+
+ALTER TABLE IF EXISTS album
+    ADD FOREIGN KEY (id_wydawcy)
+    REFERENCES wydawca (id_wydawcy) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS album
+    ADD FOREIGN KEY (id_kraj_pochodzenia)
+    REFERENCES kraj_pochodzenia (id_kraju) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS album
+    ADD FOREIGN KEY (id_gatunku)
+    REFERENCES gatunek (id_gatunku) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS lista_uzytkownika
+    ADD FOREIGN KEY (id_utworu)
+    REFERENCES utwor (id_utworu) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS utwor
+    ADD FOREIGN KEY (id_album)
+    REFERENCES album (id_albumu) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS utwor
+    ADD FOREIGN KEY (id_autora)
+    REFERENCES wykonawca (id_wykonawcy) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS uzytkownik
+    ADD FOREIGN KEY (id_listy_uzytkownika)
+    REFERENCES lista_uzytkownika (id_listy) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+END;
         `;
             const checkexist = `
             SELECT EXISTS (
