@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <h1>System internetowej biblioteki internetowej</h1>
+    <p id="paragraph"></p>
+    <div class="app-wrapper">
+        <button onclick="createTable()">Create Table</button>
+        <button onclick="endConnection()">End Connection</button>
+    </div>
+    <script>
+        const { Client } = require('pg');
+        const client = new Client({
+            host: "127.0.0.1",
+            port: 5432,
+            database: "baza",
+            user: "user",
+            password: "password"
+        });
+        client.connect();
+        function createTable(){
+            const query = `
+            CREATE TABLE Kraj_pochodzenia(
+                ID_kraju INT GENERATED ALWAYS AS IDENTITY,
+                Nazwa VARCHAR(50) NOT NULL,
+                PRIMARY KEY(ID_kraju)
+            );
+            CREATE TABLE Gatunek(
+                ID_gatunku INT GENERATED ALWAYS AS IDENTITY,
+                Nazwa_gatunku VARCHAR(50),
+                PRIMARY KEY(ID_gatunku)
+            );
+            CREATE Table Wydawca(
+                ID_Wydawcy INT GENERATED ALWAYS AS IDENTITY,
+                Nazwa_wydawcy VARCHAR(50),
+                PRIMARY Key(ID_Wydawcy)
+            );
+            CREATE TABLE Album(
+                ID_Albumu INT UNIQUE GENERATED ALWAYS AS IDENTITY,
+                Tytul_albumu VARCHAR(50),
+                ID_Wydawcy INT references "wydawca" (id_wydawcy),
+                ID_kraj_pochodzenia INT references "kraj_pochodzenia"(id_kraju),
+                ID_gatunku INT references "gatunek"(id_gatunku),
+                Data_wydania timestamp
+            );
+            CREATE TABLE Wykonawca(
+                ID_wykonawcy INT GENERATED ALWAYS AS IDENTITY,
+                Nazwa_wykonawcy VARCHAR ( 50 ) NOT NULL,
+                Opis VARCHAR (100),
+                PRIMARY KEY(ID_wykonawcy)
+            );
+            CREATE TABLE Utwor(
+                ID_utworu INT GENERATED ALWAYS AS IDENTITY,
+                ID_autora INT references "wykonawca" (id_wykonawcy),
+                ID_album INT references "album" (id_albumu),
+                Tytul_utworu VARCHAR(50) NOT NULL,
+                Czas_trwania INT,
+                PRIMARY KEY(ID_utworu)
+            );
+            CREATE Table Lista_uzytkownika(
+                ID_listy INT GENERATED ALWAYS AS IDENTITY,
+                ID_utworu INT references "utwor" (id_utworu),
+                PRIMARY KEY(ID_listy)
+            );
+            CREATE TABLE Uzytkownik(
+                ID_uzytkownika INT GENERATED ALWAYS AS IDENTITY,
+                ID_listy_uzytkownika INT references "lista_uzytkownika" (id_listy),
+                Login_uzytkownika VARCHAR(30) NOT NULL,
+                Haslo_uzytkownika VARCHAR(30) NOT NULL,
+                PRIMARY KEY(ID_uzytkownika)
+            );
+        `;
+            const checkexist = `
+            SELECT EXISTS (
+            SELECT FROM information_schema.tables 
+            WHERE  table_schema = 'public'
+            AND    table_name   = 'utwor'
+            );`;
+                client.query(checkexist, (err,res) =>{
+                    if(res["rows"][0]["exists"]){
+                        alert("Baza już istnieje")
+                    }else{
+                        client.query(query, (err,res) =>{
+                        if(err){
+                            return;
+                        }
+                        alert("Baza stworzona");
+                        })
+                    }
+                })
+                
+                // client.query(query2, (err,res) =>{
+                //     if(err){
+                //         return;
+                //     }
+                //     console.log("Table Created");
+                // })
+        }
+        function endConnection(){
+            client.end();
+        }
+        const p = document.getElementById("paragraph")
+    </script>
+</body>
+</html>
