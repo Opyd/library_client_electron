@@ -1,7 +1,18 @@
 const {app, BrowserWindow, Menu} = require('electron')
 const path = require("path")
 
-
+function addWindow(){
+    const window = new BrowserWindow({
+        width: 800, height: 400,
+        title: "Dodawanie rekordów",
+        webPreferences:{
+            preload: path.join(__dirname+"/JS", 'adding.js'),
+            nodeIntegration: true, contextIsolation: false,
+        }
+    })
+    window.openDevTools();
+    window.loadFile('addNew.html')
+}
 
 function createWindow(){
     const window = new BrowserWindow({
@@ -13,7 +24,7 @@ function createWindow(){
         }
     })
     window.loadFile('index.html')
-    window.openDevTools();
+    //window.openDevTools();
 }
 app.whenReady().then(() =>{
     createWindow()
@@ -34,7 +45,9 @@ app.on('window-all-closed',()=>{
 const mainMenuTemplate = [{
     label: 'Dane',
     submenu:[{
-        label: "Dodaj wiersz"
+        label: "Dodaj wiersz", click(){
+            addWindow();
+        }
     },
     {
         label: "Wyświetl wiersze"
@@ -43,6 +56,7 @@ const mainMenuTemplate = [{
         label : "Wyjdź",click(){
             app.quit();
         }
-    }]
+    }
+    ]
 }
 ]
