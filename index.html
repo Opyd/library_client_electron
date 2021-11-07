@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal muzyczny</title>
-
-</head>
-<body>
-    <h1>Portal muzyczny</h1>
-    <p id="paragraph"></p>
-    <div class="app-wrapper">
-        <button onclick="createTable()">Create Table</button>
-        <button onclick="endConnection()">End Connection</button>
-    </div>
-    <script>
-        const { Client } = require('pg');
-        const client = new Client({
-            host: "127.0.0.1",
-            port: 5432,
-            database: "baza",
-            user: "user",
-            password: "password"
-        });
-        client.connect();
-        function createTable(){
-            const query = `
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portal muzyczny</title>
+    </head>
+    <body>
+        <h1>Portal muzyczny</h1>
+        <p id="paragraph"></p>
+        <div class="app-wrapper">
+            <button onclick="createTable()">Create Table</button>
+            <button onclick="endConnection()">End Connection</button>
+        </div>
+        <script>
+            const { Client } = require("pg");
+            const client = new Client({
+                host: "127.0.0.1",
+                port: 5432,
+                database: "baza",
+                user: "user",
+                password: "password",
+            });
+            client.connect();
+            function createTable() {
+                const query = `
             CREATE TABLE Kraj_pochodzenia(
                 ID_kraju INT GENERATED ALWAYS AS IDENTITY,
                 Nazwa VARCHAR(50) NOT NULL,
@@ -200,36 +199,36 @@ ALTER TABLE IF EXISTS uzytkownik
 
 END;
         `;
-            const checkexist = `
+                const checkexist = `
             SELECT EXISTS (
             SELECT FROM information_schema.tables 
             WHERE  table_schema = 'public'
             AND    table_name   = 'utwor'
             );`;
-                client.query(checkexist, (err,res) =>{
-                    if(res["rows"][0]["exists"]){
-                        alert("Baza już istnieje")
-                    }else{
-                        client.query(query, (err,res) =>{
-                        if(err){
-                            return;
-                        }
-                        alert("Baza stworzona");
-                        })
+                client.query(checkexist, (err, res) => {
+                    if (res["rows"][0]["exists"]) {
+                        alert("Baza już istnieje");
+                    } else {
+                        client.query(query, (err, res) => {
+                            if (err) {
+                                return;
+                            }
+                            alert("Baza stworzona");
+                        });
                     }
-                })
-                
+                });
+
                 // client.query(query2, (err,res) =>{
                 //     if(err){
                 //         return;
                 //     }
                 //     console.log("Table Created");
                 // })
-        }
-        function endConnection(){
-            client.end();
-        }
-        const p = document.getElementById("paragraph")
-    </script>
-</body>
+            }
+            function endConnection() {
+                client.end();
+            }
+            const p = document.getElementById("paragraph");
+        </script>
+    </body>
 </html>

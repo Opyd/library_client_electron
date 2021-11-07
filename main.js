@@ -6,12 +6,24 @@ function addWindow(){
         width: 800, height: 400,
         title: "Dodawanie rekordów",
         webPreferences:{
-            preload: path.join(__dirname+"/JS", 'adding.js'),
+            //preload: path.join(__dirname+"/JS", 'adding.js'),
             nodeIntegration: true, contextIsolation: false,
         }
     })
     window.openDevTools();
     window.loadFile('addNew.html')
+}
+function showWindow(){
+    const window = new BrowserWindow({
+        width: 800, height: 400,
+        title: "Wyswietlanie rekordów",
+        webPreferences:{
+            //preload: path.join(__dirname+"/JS", 'adding.js'),
+            nodeIntegration: true, contextIsolation: false,
+        }
+    })
+    window.openDevTools();
+    window.loadFile('displayTables.html')
 }
 
 function createWindow(){
@@ -50,7 +62,9 @@ const mainMenuTemplate = [{
         }
     },
     {
-        label: "Wyświetl wiersze"
+        label: "Wyświetl wiersze", click(){
+            showWindow();
+        }
     },
     {
         label : "Wyjdź",click(){
