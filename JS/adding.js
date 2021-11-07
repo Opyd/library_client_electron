@@ -25,8 +25,9 @@ const client = new Client({
 client.connect();
 function addGenre() {
     let val = document.getElementById("genre").value;
-    let addGenreQuery = "INSERT INTO gatunek (nazwa_gatunku) VALUES('"+val+"');";
-    console.log(addGenreQuery)
+    let addGenreQuery =
+        "INSERT INTO gatunek (nazwa_gatunku) VALUES('" + val + "');";
+    console.log(addGenreQuery);
     client.query(addGenreQuery, (err, res) => {
         if (err) {
             return;
@@ -37,8 +38,9 @@ function addGenre() {
 
 function addCountry() {
     let val = document.getElementById("country").value;
-    let addCountryQuery = "INSERT INTO kraj_pochodzenia (nazwa) VALUES('"+val+"');";
-    console.log(addCountryQuery)
+    let addCountryQuery =
+        "INSERT INTO kraj_pochodzenia (nazwa) VALUES('" + val + "');";
+    console.log(addCountryQuery);
     client.query(addCountryQuery, (err, res) => {
         if (err) {
             return;
