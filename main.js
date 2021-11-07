@@ -3,26 +3,24 @@ const path = require("path")
 
 function addWindow(){
     const window = new BrowserWindow({
-        width: 800, height: 400,
+        width: 400, height: 400,
         title: "Dodawanie rekordów",
         webPreferences:{
             //preload: path.join(__dirname+"/JS", 'adding.js'),
             nodeIntegration: true, contextIsolation: false,
         }
     })
-    window.openDevTools();
     window.loadFile('addNew.html')
 }
 function showWindow(){
     const window = new BrowserWindow({
-        width: 800, height: 400,
+        width: 1200, height: 800,
         title: "Wyswietlanie rekordów",
         webPreferences:{
             //preload: path.join(__dirname+"/JS", 'adding.js'),
             nodeIntegration: true, contextIsolation: false,
         }
     })
-    window.openDevTools();
     window.loadFile('displayTables.html')
 }
 

@@ -4,13 +4,13 @@ function chooseCategory() {
     console.log(select.value);
     if (select.value === "genre") {
         div.innerHTML = `
-        <input type="text" placeholder="Nazwa gatunku" id='genre'><br/>
-        <input type="submit" value="Dodaj gatunek" onClick="addGenre()">
+        <input type="text" placeholder="Nazwa gatunku" class="form-control" id='genre' required><br/>
+        <button onClick="addGenre()" class="btn btn-primary">Dodaj gatunek</button>
         `;
     } else {
         div.innerHTML = `
-        <input type="text" placeholder="Nazwa kraju" id='country'><br/>
-        <input type="submit" value="Dodaj kraj" onClick="addCountry()">
+        <input type="text" placeholder="Nazwa kraju" id='country' class="form-control" required><br/>
+        <button onClick="addCountry()" class="btn btn-primary">Dodaj kraj</button>
         `;
     }
 }
