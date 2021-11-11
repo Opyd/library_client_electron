@@ -1,74 +1,106 @@
-const {app, BrowserWindow, Menu} = require('electron')
-const path = require("path")
+const { app, BrowserWindow, Menu } = require("electron");
+const path = require("path");
 
-function addWindow(){
+function addWindow() {
     const window = new BrowserWindow({
-        width: 400, height: 400,
+        width: 400,
+        height: 400,
         title: "Dodawanie rekordów",
-        webPreferences:{
+        webPreferences: {
             //preload: path.join(__dirname+"/JS", 'adding.js'),
-            nodeIntegration: true, contextIsolation: false,
-        }
-    })
-    window.loadFile('addNew.html')
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("addNew.html");
 }
-function showWindow(){
+function delWindow() {
     const window = new BrowserWindow({
-        width: 1200, height: 800,
-        title: "Wyswietlanie rekordów",
-        webPreferences:{
+        width: 900,
+        height: 400,
+        title: "Usuwanie rekordów",
+        webPreferences: {
             //preload: path.join(__dirname+"/JS", 'adding.js'),
-            nodeIntegration: true, contextIsolation: false,
-        }
-    })
-    window.loadFile('displayTables.html')
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.openDevTools();
+    window.loadFile("delWindow.html");
+}
+function showWindow() {
+    const window = new BrowserWindow({
+        width: 1200,
+        height: 800,
+        title: "Wyswietlanie rekordów",
+        webPreferences: {
+            //preload: path.join(__dirname+"/JS", 'adding.js'),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("displayTables.html");
 }
 
-function createWindow(){
+function createWindow() {
     const window = new BrowserWindow({
-        width: 500, height: 500,
+        width: 500,
+        height: 500,
         title: "Portal muzyczny",
-        webPreferences:{
-            preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: true, contextIsolation: false,
-        }
-    })
-    window.loadFile('index.html')
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("index.html");
     //window.openDevTools();
 }
-app.whenReady().then(() =>{
-    createWindow()
-    app.on('activate',() =>{
-        if(BrowserWindow.getAllWindows().length===0){
-            createWindow()
+app.whenReady().then(() => {
+    createWindow();
+    app.on("activate", () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
         }
-    })
+    });
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
-})
-app.on('window-all-closed',()=>{
-    if(process.platform !== 'darwin'){
-        app.quit()
+});
+app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+        app.quit();
     }
-})
+});
 
-const mainMenuTemplate = [{
-    label: 'Dane',
-    submenu:[{
-        label: "Dodaj wiersz", click(){
-            addWindow();
-        }
-    },
+const mainMenuTemplate = [
     {
-        label: "Wyświetl wiersze", click(){
-            showWindow();
-        }
+        label: "Dane",
+        submenu: [
+            {
+                label: "Dodaj wiersz",
+                click() {
+                    addWindow();
+                },
+            },
+            {
+                label: "Wyświetl wiersze",
+                click() {
+                    showWindow();
+                },
+            },
+            {
+                label: "Usuń wiersz",
+                click() {
+                    delWindow();
+                },
+            },
+            {
+                label: "Wyjdź",
+                accelerator: "CmdOrCtrl+Q",
+                click() {
+                    app.quit();
+                },
+            },
+        ],
     },
-    {
-        label : "Wyjdź",click(){
-            app.quit();
-        }
-    }
-    ]
-}
-]
+];
