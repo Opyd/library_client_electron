@@ -25,7 +25,7 @@ function delWindow() {
             contextIsolation: false,
         },
     });
-    window.openDevTools();
+    // window.openDevTools();
     window.loadFile("delWindow.html");
 }
 function updateWindow() {
@@ -39,7 +39,7 @@ function updateWindow() {
             contextIsolation: false,
         },
     });
-    window.openDevTools();
+    // window.openDevTools();
     window.loadFile("updateWindow.html");
 }
 function showWindow() {
@@ -53,7 +53,7 @@ function showWindow() {
             contextIsolation: false,
         },
     });
-    window.openDevTools();
+    // window.openDevTools();
     window.loadFile("displayTables.html");
 }
 
