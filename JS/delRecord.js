@@ -28,7 +28,7 @@ function del_record() {
             if (res["rowCount"] == 0) {
                 alert("Nie istnieje rekord o takim ID");
             } else {
-                alert(`Pomyślnie usnięto rekord o ID: ${id}`);
+                alert(`Pomyślnie usznięto rekord o ID: ${id}`);
             }
         });
     } else {

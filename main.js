@@ -28,6 +28,20 @@ function delWindow() {
     window.openDevTools();
     window.loadFile("delWindow.html");
 }
+function updateWindow() {
+    const window = new BrowserWindow({
+        width: 900,
+        height: 400,
+        title: "Aktualizacja rekordów",
+        webPreferences: {
+            //preload: path.join(__dirname+"/JS", 'adding.js'),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.openDevTools();
+    window.loadFile("updateWindow.html");
+}
 function showWindow() {
     const window = new BrowserWindow({
         width: 1200,
@@ -39,6 +53,7 @@ function showWindow() {
             contextIsolation: false,
         },
     });
+    window.openDevTools();
     window.loadFile("displayTables.html");
 }
 
@@ -92,6 +107,12 @@ const mainMenuTemplate = [
                 label: "Usuń wiersz",
                 click() {
                     delWindow();
+                },
+            },
+            {
+                label: "Aktualizuj wiersz",
+                click() {
+                    updateWindow();
                 },
             },
             {

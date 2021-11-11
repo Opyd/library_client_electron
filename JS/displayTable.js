@@ -9,24 +9,42 @@ const client = new Client({
 client.connect();
 
 function displayOption() {
-    let div = document.getElementById("formContainer");
+    let div = document.getElementById("display");
     let select = document.getElementById("table");
     let query = "";
     if (select.value === "genres") {
-        query = "SELECT * FROM gatunek;";
-    } else if (select.value === "countries") {
-        query = "SELECT * FROM kraj_pochodzenia;";
-    }
-    div.innerHTML="<table style='border: 1px solid black'>"
-    if (query != "") {
+        query = "SELECT * FROM gatunek ORDER BY id_gatunku;";
         client.query(query, (err, res) => {
-            //console.log(res['rows'].length);
-            for(i = 0; i < res['rows'].length; i++){
-                console.log(res['rows'][i]["id_gatunku"])
-                div.innerHTML +="<tr><td>"+res['rows'][i]["id_gatunku"]+"</td><td>"+res['rows'][i]["nazwa_gatunku"]+"</td></tr>"
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Nazwa gatunku</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_gatunku"] +
+                        "</td><td>" +
+                        res["rows"][i]["nazwa_gatunku"] +
+                        "</td></tr>"
+                );
             }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    } else if (select.value === "countries") {
+        query = "SELECT * FROM kraj_pochodzenia ORDER BY id_kraju;";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Kraj</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_kraju"] +
+                        "</td><td>" +
+                        res["rows"][i]["nazwa"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
         });
     }
-    div.innerHTML+="</table>"
-
 }
