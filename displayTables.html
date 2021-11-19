@@ -1,79 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Wyświetlanie tabel</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"
-        ></script>
-    </head>
-    <body>
-        <select onchange="displayOption()" id="table" class="form-select">
-            <option value="...">...</option>
-            <option value="genres">Gatunki</option>
-            <option value="countries">Kraje</option>
-        </select>
-        <div id="formContainer">
-            <table class="table" id="display"></table>
-        </div>
-        <script>
-            const { Client } = require("pg");
-            const client = new Client({
-                host: "127.0.0.1",
-                port: 5432,
-                database: "baza",
-                user: "user",
-                password: "password",
-            });
-            client.connect();
+<html lang="pl">
+  <head>
+    <title>Wyświetlanie tabel</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <select onchange="displayOption()" id="table" class="form-select">
+      <option value="...">...</option>
+      <option value="genres">Gatunki</option>
+      <option value="countries">Kraje</option>
+      <option value="publisher">Wydawca</option>
+      <option value="user">Użytkownik</option>
+      <option value="performer">Wykonawca</option>
+    </select>
+    <div id="formContainer">
+      <table class="table" id="display"></table>
+    </div>
+    <script>
+      const { Client } = require("pg");
+      const client = new Client({
+        host: "127.0.0.1",
+        port: 5432,
+        database: "baza",
+        user: "user",
+        password: "password",
+      });
+      client.connect();
 
-            function displayOption() {
-                let div = document.getElementById("display");
-                let select = document.getElementById("table");
-                let query = "";
-                if (select.value === "genres") {
-                    query = "SELECT * FROM gatunek ORDER BY id_gatunku;";
-                    client.query(query, (err, res) => {
-                        let inner =
-                            "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Nazwa gatunku</th></tr></thead><tbody>";
-                        for (i = 0; i < res["rows"].length; i++) {
-                            inner = inner.concat(
-                                "<tr><td>" +
-                                    res["rows"][i]["id_gatunku"] +
-                                    "</td><td>" +
-                                    res["rows"][i]["nazwa_gatunku"] +
-                                    "</td></tr>"
-                            );
-                        }
-                        inner = inner.concat("</tbody></table>");
-                        div.innerHTML = inner;
-                    });
-                } else if (select.value === "countries") {
-                    query = "SELECT * FROM kraj_pochodzenia ORDER BY id_kraju;";
-                    client.query(query, (err, res) => {
-                        let inner =
-                            "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Kraj</th></tr></thead><tbody>";
-                        for (i = 0; i < res["rows"].length; i++) {
-                            inner = inner.concat(
-                                "<tr><td>" +
-                                    res["rows"][i]["id_kraju"] +
-                                    "</td><td>" +
-                                    res["rows"][i]["nazwa"] +
-                                    "</td></tr>"
-                            );
-                        }
-                        inner = inner.concat("</tbody></table>");
-                        div.innerHTML = inner;
-                    });
-                }
+      function displayOption() {
+        let div = document.getElementById("display");
+        let select = document.getElementById("table");
+        let query = "";
+        if (select.value === "genres") {
+          query = "SELECT * FROM gatunek ORDER BY id_gatunku;";
+          client.query(query, (err, res) => {
+            let inner =
+              "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Nazwa gatunku</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+              inner = inner.concat(
+                "<tr><td>" +
+                  res["rows"][i]["id_gatunku"] +
+                  "</td><td>" +
+                  res["rows"][i]["nazwa_gatunku"] +
+                  "</td></tr>"
+              );
             }
-        </script>
-    </body>
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+          });
+        } else if (select.value === "countries") {
+          query = "SELECT * FROM kraj_pochodzenia ORDER BY id_kraju;";
+          client.query(query, (err, res) => {
+            let inner =
+              "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Kraj</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+              inner = inner.concat(
+                "<tr><td>" +
+                  res["rows"][i]["id_kraju"] +
+                  "</td><td>" +
+                  res["rows"][i]["nazwa"] +
+                  "</td></tr>"
+              );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+          });
+        } else if (select.value === "publisher") {
+          query = "SELECT * FROM wydawca ORDER BY id_wydawcy;";
+          client.query(query, (err, res) => {
+            let inner =
+              "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Wydawca</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+              inner = inner.concat(
+                "<tr><td>" +
+                  res["rows"][i]["id_wydawcy"] +
+                  "</td><td>" +
+                  res["rows"][i]["nazwa_wydawcy"] +
+                  "</td></tr>"
+              );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+          });
+        } else if (select.value === "user") {
+          query = "SELECT * FROM uzytkownik ORDER BY id_uzytkownika;";
+          client.query(query, (err, res) => {
+            let inner =
+              "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Login</th><th scope='col'>Haslo</th><th scope='col'>ID listy</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+              inner = inner.concat(
+                "<tr><td>" +
+                  res["rows"][i]["id_uzytkownika"] +
+                  "</td><td>" +
+                  res["rows"][i]["login_uzytkownika"] +
+                  "</td><td>###</td><td>" +
+                  res["rows"][i]["id_listy_uzytkownika"] +
+                  "</td></tr>"
+              );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+          });
+        } else if (select.value === "performer") {
+          query = "SELECT * from wykonawca ORDER BY id_wykonawcy;";
+          client.query(query, (err, res) => {
+            let inner =
+              "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Nazwa wykonawcy</th><th scope='col'>Opis</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+              inner = inner.concat(
+                "<tr><td>" +
+                  res["rows"][i]["id_wykonawcy"] +
+                  "</td><td>" +
+                  res["rows"][i]["nazwa_wykonawcy"] +
+                  "</td><td>" +
+                  res["rows"][i]["opis"] +
+                  "</td></tr>"
+              );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+          });
+        }
+      }
+    </script>
+  </body>
 </html>
