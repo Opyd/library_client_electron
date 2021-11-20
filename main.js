@@ -53,7 +53,7 @@ function showWindow() {
             contextIsolation: false,
         },
     });
-    // window.openDevTools();
+    window.openDevTools();
     window.loadFile("displayTables.html");
 }
 

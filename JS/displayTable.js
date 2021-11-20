@@ -46,5 +46,126 @@ function displayOption() {
             inner = inner.concat("</tbody></table>");
             div.innerHTML = inner;
         });
+    } else if (select.value === "publisher") {
+        query = "SELECT * FROM wydawca ORDER BY id_wydawcy;";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Wydawca</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_wydawcy"] +
+                        "</td><td>" +
+                        res["rows"][i]["nazwa_wydawcy"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    } else if (select.value === "user") {
+        query = "SELECT * FROM uzytkownik ORDER BY id_uzytkownika;";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Login</th><th scope='col'>Haslo</th><th scope='col'>ID listy</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_uzytkownika"] +
+                        "</td><td>" +
+                        res["rows"][i]["login_uzytkownika"] +
+                        "</td><td>###</td><td>" +
+                        res["rows"][i]["id_listy_uzytkownika"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    } else if (select.value === "performer") {
+        query = "SELECT * from wykonawca ORDER BY id_wykonawcy;";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>Nazwa wykonawcy</th><th scope='col'>Opis</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_wykonawcy"] +
+                        "</td><td>" +
+                        res["rows"][i]["nazwa_wykonawcy"] +
+                        "</td><td>" +
+                        res["rows"][i]["opis"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    } else if (select.value === "user_list") {
+        query = "SELECT * FROM lista_uzytkownika ORDER BY id_listy";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID Listy</th><th scope='col'>ID Utworu</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_listy"] +
+                        "</td><td>" +
+                        res["rows"][i]["id_utworu"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    } else if (select.value === "track") {
+        query = "SELECT * FROM utwor ORDER BY id_utworu";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>ID Utworu</th><th scope='col'>ID Autora</th><th scope='col'>ID Albumu</th><th scope='col'>Tytuł utworu</th><th scope='col'>Czas trwania</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_utworu"] +
+                        "</td><td>" +
+                        res["rows"][i]["id_autora"] +
+                        "</td><td>" +
+                        res["rows"][i]["id_album"] +
+                        "</td><td>" +
+                        res["rows"][i]["tytul_utworu"] +
+                        "</td><td>" +
+                        res["rows"][i]["czas_trwania"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    } else if (select.value === "album") {
+        let test = test();
+        query = "SELECT * FROM album ORDER BY id_albumu";
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>ID Albumu</th><th scope='col'>Tytul Albumu</th><th scope='col'>ID Wydawcy</th><th scope='col'>ID Kraju pochodzenia</th><th scope='col'>ID Gatunku</th><th scope='col'>Data wydania</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["id_albumu"] +
+                        "</td><td>" +
+                        res["rows"][i]["tytul_albumu"] +
+                        "</td><td>" +
+                        res["rows"][i]["id_wydawcy"]+
+                        "</td><td>" +
+                        res["rows"][i]["id_kraj_pochodzenia"] +
+                        "</td><td>" +
+                        res["rows"][i]["id_gatunku"] +
+                        "</td><td>" +
+                        res["rows"][i]["data_wydania"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
     }
 }
