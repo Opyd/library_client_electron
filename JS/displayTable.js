@@ -142,7 +142,6 @@ function displayOption() {
             div.innerHTML = inner;
         });
     } else if (select.value === "album") {
-        let test = test();
         query = "SELECT * FROM album ORDER BY id_albumu";
         client.query(query, (err, res) => {
             let inner =

@@ -166,10 +166,10 @@ function addAlbum() {
     let albumTitle = document.getElementById("albumTitle").value;
     let publisherID = document.getElementById("publisherID").value;
     let countryID = document.getElementById("countryID").value;
-    let genreID = document.getElementById("countryID").value;
+    let genreID = document.getElementById("genreID").value;
     let releaseDate = document.getElementById("releaseDate").value;
 
-    let addAlbumQuery = `INSERT INTO album (tytul_albumu, id_wydawcy, id_kraj_pochodzenia, id_gatunku, data_wydania) VALUES('${albumTitle}','${publisherID}','${countryID}','${genreID}','${releaseDate}');`;
+    let addAlbumQuery = `INSERT INTO album (tytul_albumu, id_wydawcy, id_kraj_pochodzenia, id_gatunku, data_wydania) VALUES('${albumTitle}',${publisherID},${countryID},${genreID},'${releaseDate}');`;
     let regexp = new RegExp("^\\d{1,}$");
     if (
         !regexp.test(publisherID) ||
