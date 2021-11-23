@@ -19,6 +19,24 @@ function del_record() {
         case "kraj_pochodzenia":
             delQuery = `DELETE FROM ${selected} WHERE id_kraju=${id} `;
             break;
+        case "wydawca":
+            delQuery = `DELETE FROM ${selected} WHERE id_wydawcy=${id} `;
+            break;
+        case "uzytkownik":
+            delQuery = `DELETE FROM ${selected} WHERE id_uzytkownika=${id} `;
+            break;
+        case "wykonawca":
+            delQuery = `DELETE FROM ${selected} WHERE id_wykonawcy=${id} `;
+            break;
+        case "lista_uzytkownika":
+            delQuery = `DELETE FROM ${selected} WHERE id_list=${id} `;
+            break;
+        case "utwor":
+            delQuery = `DELETE FROM ${selected} WHERE id_utworu=${id} `;
+            break;
+        case "album":
+            delQuery = `DELETE FROM ${selected} WHERE id_albumu=${id} `;
+            break;
     }
     if (delQuery != null) {
         client.query(delQuery, (err, res) => {

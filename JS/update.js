@@ -49,6 +49,11 @@ function choose_category() {
             id.setAttribute("max", max);
             id.setAttribute("value", min);
         });
+    }else if(selected.value === "wydawca"){
+        div.innerHTML = `
+        <input type="text" placeholder="Nazwa wydawcy" id='publisher' class="form-control" required><br/>
+        <button onClick="addPublisher()" class="btn btn-primary">Dodaj wydawcę</button>
+        `;
     }
 }
 
