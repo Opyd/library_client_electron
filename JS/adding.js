@@ -128,7 +128,7 @@ function addCountry() {
 }
 function addList() {
     let val = document.getElementById("trackID").value;
-    let addListQuery = `INSERT INTO lista_uzytkownika (utworu) VALUES('${val}');`;
+    let addListQuery = `INSERT INTO lista_uzytkownika (utwor) VALUES('${val}');`;
     let regexp = new RegExp("^\\d{1,}$");
     if (!regexp.test(val)) {
         alert("Wprowadź poprawne dane");
