@@ -29,7 +29,7 @@ function del_record() {
             delQuery = `DELETE FROM ${selected} WHERE id_wykonawcy=${id} `;
             break;
         case "lista_uzytkownika":
-            delQuery = `DELETE FROM ${selected} WHERE id_list=${id} `;
+            delQuery = `DELETE FROM ${selected} WHERE id_listy=${id} `;
             break;
         case "utwor":
             delQuery = `DELETE FROM ${selected} WHERE id_utworu=${id} `;

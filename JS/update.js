@@ -127,23 +127,23 @@ function update() {
             let valListID = document.getElementById("listID").value;
             let valLogin = document.getElementById("userLogin").value;
             let valPass = document.getElementById("userPassword").value;
-            updQuery = `UPDATE ${selected} SET ID_listy_uzytkownika='${valListID}', Login_uzytkownika='${valLogin}', Haslo_uzytkownika='${valPass}' WHERE ` //todo
+            updQuery = `UPDATE ${selected} SET ID_listy_uzytkownika='${valListID}', Login_uzytkownika='${valLogin}', Haslo_uzytkownika='${valPass}' WHERE id_uzytkownika='${id}'` //todo
             break;
         case "wykonawca":
             let valName = document.getElementById("performerName").value;
             let valDesc = document.getElementById("performerDesc").value;
-            updQuery = `UPDATE ${selected} SET nazwa_wykonawcy='${valName}',opis='${valDesc}' WHERE`;//todo
+            updQuery = `UPDATE ${selected} SET nazwa_wykonawcy='${valName}',opis='${valDesc}' WHERE id_wykonawcy='${id}'`;//todo
             break;
         case "lista_uzytkownika":
             val = document.getElementById("trackID").value;
-            updQuery = `UPDATE ${selected} SET utwor='${val} WHERE`; //todo
+            updQuery = `UPDATE ${selected} SET utwor='${val} WHERE id_listy=${id_listy}`; //todo
             break;
         case "utwor":
             let albumID = document.getElementById("albumID").value;
             let trackTitle = document.getElementById("trackTitle").value;
             let trackDuration = document.getElementById("trackDuration").value;
             let performerID = document.getElementById("performerID").value;
-            updQuery = `UPDATE ${selected} SET id_autora='${performerID}', id_albumu='${albumID}',tytul_utworu='${trackTitle}',czas_trwania='${trackDuration}' WHERE` //todo;
+            updQuery = `UPDATE ${selected} SET id_autora='${performerID}', id_albumu='${albumID}',tytul_utworu='${trackTitle}',czas_trwania='${trackDuration}' WHERE id_utworu='${id}'` //todo;
             break;
         case "album":
             let albumTitle = document.getElementById("albumTitle").value;
@@ -151,7 +151,7 @@ function update() {
             let countryID = document.getElementById("countryID").value;
             let genreID = document.getElementById("genreID").value;
             let releaseDate = document.getElementById("releaseDate").value;
-            updQuery = `UPDATE ${selected} SET tytul_albumu='${albumTitle}', id_wydawcy='${publisherID}',id_kraj_pochodzenia='${countryID}', id_gatunku='${genreID}', data_wydania='${releaseDate}' WHERE ` //todo
+            updQuery = `UPDATE ${selected} SET tytul_albumu='${albumTitle}', id_wydawcy='${publisherID}',id_kraj_pochodzenia='${countryID}', id_gatunku='${genreID}', data_wydania='${releaseDate}' WHERE id_albumu='${id}'` //todo
             break;
         }
     if (updQuery != null) {
