@@ -142,22 +142,23 @@ function displayOption() {
             div.innerHTML = inner;
         });
     } else if (select.value === "album") {
-        query = "SELECT * FROM album ORDER BY id_albumu";
+        query = "SELECT id_albumu, tytul_albumu, wydawca.nazwa_wydawcy, kraj_pochodzenia.nazwa, gatunek.nazwa_gatunku, data_wydania FROM public.album inner join wydawca on album.id_wydawcy=wydawca.id_wydawcy inner join kraj_pochodzenia on album.id_kraj_pochodzenia=kraj_pochodzenia.id_kraju inner join gatunek on album.id_gatunku=gatunek.id_gatunku";
         client.query(query, (err, res) => {
+            console.log(res)
             let inner =
-                "<table class='table'><thead><tr><th scope='col'>ID Albumu</th><th scope='col'>Tytul Albumu</th><th scope='col'>ID Wydawcy</th><th scope='col'>ID Kraju pochodzenia</th><th scope='col'>ID Gatunku</th><th scope='col'>Data wydania</th></tr></thead><tbody>";
+                "<table class='table'><thead><tr><th scope='col'>ID Albumu</th><th scope='col'>Tytul Albumu</th><th scope='col'>Wydawca</th><th scope='col'>Kraj pochodzenia</th><th scope='col'>Gatunek</th><th scope='col'>Data wydania</th></tr></thead><tbody>";
             for (i = 0; i < res["rows"].length; i++) {
                 inner = inner.concat(
                     "<tr><td>" +
                         res["rows"][i]["id_albumu"] +
-                        "</td><td>" +
+                        "</td><td>" +   
                         res["rows"][i]["tytul_albumu"] +
                         "</td><td>" +
-                        res["rows"][i]["id_wydawcy"]+
+                        res["rows"][i]["nazwa_wydawcy"]+
                         "</td><td>" +
-                        res["rows"][i]["id_kraj_pochodzenia"] +
+                        res["rows"][i]["nazwa"] +
                         "</td><td>" +
-                        res["rows"][i]["id_gatunku"] +
+                        res["rows"][i]["nazwa_gatunku"] +
                         "</td><td>" +
                         res["rows"][i]["data_wydania"] +
                         "</td></tr>"
