@@ -72,6 +72,21 @@ function createWindow() {
     window.loadFile("index.html");
     //window.openDevTools();
 }
+
+function showView(){
+    const window = new BrowserWindow({
+        width: 500,
+        height: 500,
+        title: "Portal muzyczny",
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("views/showViews.html");
+}
+
 app.whenReady().then(() => {
     createWindow();
     app.on("activate", () => {
@@ -125,4 +140,34 @@ const mainMenuTemplate = [
             },
         ],
     },
+    {
+        label: "Widoki",
+        submenu: [
+            {
+                label: "Dodaj wiersz",
+                click() {
+                    addView();
+                },
+            },
+            {
+                label: "Wyświetl wiersze",
+                click() {
+                    showView();
+                },
+            },
+            {
+                label: "Usuń wiersz",
+                click() {
+                    delView();
+                },
+            },
+            {
+                label: "Aktualizuj wiersz",
+                click() {
+                    updateView();
+                },
+            }
+        ]
+    }
+
 ];
