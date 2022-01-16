@@ -147,7 +147,7 @@ function addTrack() {
     let trackTitle = document.getElementById("trackTitle").value;
     let trackDuration = document.getElementById("trackDuration").value;
     let performerID = document.getElementById("performerID").value;
-    let addTrackQuery = `INSERT INTO utwor (id_autora,id_albumu,tytul_utworu,czas_trwania) VALUES('${performerID}','${albumID}','${trackTitle}','${trackDuration}');`;
+    let addTrackQuery = `INSERT INTO utwor (id_autora,id_albumu,tytul_utworu,czas_trwania) VALUES(${performerID},${albumID},'${trackTitle}','${trackDuration}');`;
 
     let regexp = new RegExp("^\\d{1,}$");
     if (!regexp.test(albumID) || !regexp.test(performerID)) {
@@ -156,6 +156,7 @@ function addTrack() {
         client.query(addTrackQuery, (err, res) => {
             if (err) {
                 alert("Błąd!");
+                console.log(err)
                 return;
             }
             alert("Dodano wiersz!");

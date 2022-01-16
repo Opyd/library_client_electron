@@ -122,7 +122,7 @@ function displayOption() {
         query = "SELECT * FROM utwor ORDER BY id_utworu";
         client.query(query, (err, res) => {
             let inner =
-                "<table class='table'><thead><tr><th scope='col'>ID</th><th scope='col'>ID Utworu</th><th scope='col'>ID Autora</th><th scope='col'>ID Albumu</th><th scope='col'>Tytuł utworu</th><th scope='col'>Czas trwania</th></tr></thead><tbody>";
+                "<table class='table'><thead><tr><th scope='col'>ID Utworu</th><th scope='col'>ID Autora</th><th scope='col'>ID Albumu</th><th scope='col'>Tytuł utworu</th><th scope='col'>Czas trwania</th></tr></thead><tbody>";
             for (i = 0; i < res["rows"].length; i++) {
                 inner = inner.concat(
                     "<tr><td>" +

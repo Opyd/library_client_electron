@@ -1,0 +1,2 @@
+//nazwa wykonawcy tytul utworu
+//tytul albumu, nazwa wydawcy, nazwa miejscowosci

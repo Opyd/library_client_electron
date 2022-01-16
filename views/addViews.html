@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl">
     <head>
-        <title>Wyświetlanie tabel</title>
+        <title>Dodawanie rekordów</title>
+        <!-- <script src="JS/adding.js"></script> -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -13,18 +14,19 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"
         ></script>
+        <style>
+            button {
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
-        <select onchange="displayOption()" id="table" class="form-select">
+        <select onchange="chooseCategory()" id="table" class="form-select">
             <option value="...">...</option>
-            <option value="genres">Gatunki</option>
-            <option value="countries">Kraje</option>
-            <option value="tytul_gatunek">Tytuł utworu i gatunek</option>
-            <option value="wykonawca_kraj">Wykonawca i kraj</option>
+            <option value="genre">Gatunek</option>
+            <option value="country">Kraj</option>
         </select>
-        <div id="formContainer">
-            <table class="table" id="display"></table>
-        </div>
-        <script src="showViews.js"></script>
+        <div id="formContainer"></div>
+        <script src="addView.js"></script>
     </body>
 </html>

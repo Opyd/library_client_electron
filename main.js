@@ -84,7 +84,47 @@ function showView(){
             contextIsolation: false,
         },
     });
+    // window.openDevTools();
     window.loadFile("views/showViews.html");
+}
+function addView(){
+    const window = new BrowserWindow({
+        width: 500,
+        height: 500,
+        title: "Portal muzyczny",
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("views/addViews.html");
+}
+function delView(){
+    const window = new BrowserWindow({
+        width: 500,
+        height: 500,
+        title: "Portal muzyczny",
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("views/delView.html");
+}
+function updateView(){
+    const window = new BrowserWindow({
+        width: 500,
+        height: 500,
+        title: "Portal muzyczny",
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    window.loadFile("views/updateView.html");
 }
 
 app.whenReady().then(() => {
