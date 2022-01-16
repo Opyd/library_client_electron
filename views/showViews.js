@@ -81,5 +81,73 @@ function displayOption() {
             inner = inner.concat("</tbody></table>");
             div.innerHTML = inner;
         });
+    }else if(select.value === "czas_trwania_widok"){
+        query = "SELECT tytul_utworu, czas_trwania FROM public.czas_trwania_widok;"
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>Tytuł utworu</th><th scope='col'>Czas trwania</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["tytul_utworu"] +
+                        "</td><td>" +
+                        res["rows"][i]["czas_trwania"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    }else if(select.value === "l_albumow_gatunek"){
+        query = 'SELECT "Gatunek", "Liczba albumów" FROM public.l_albumow_gatunek;'
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>Gatunek</th><th scope='col'>Liczba albumów</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["Gatunek"] +
+                        "</td><td>" +
+                        res["rows"][i]["Liczba albumów"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    }else if(select.value === "l_utworow_widok"){
+        query = 'SELECT "Autor", "Liczba utworów" FROM public.l_utworow_widok;'
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>Autor</th><th scope='col'>Liczba utworów</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["Autor"] +
+                        "</td><td>" +
+                        res["rows"][i]["Liczba utworów"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    }else if(select.value === "piosenki_autor_na_albumie"){
+        query = 'SELECT "Tytul", "Autor" FROM public.piosenki_autor_na_albumie;'
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>Tytul</th><th scope='col'>Autor</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["Tytul"] +
+                        "</td><td>" +
+                        res["rows"][i]["Autor"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
     }
 }

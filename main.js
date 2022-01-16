@@ -12,7 +12,7 @@ function addWindow() {
             contextIsolation: false,
         },
     });
-    window.openDevTools();
+    // window.openDevTools();
     window.loadFile("addNew.html");
 }
 function delWindow() {
