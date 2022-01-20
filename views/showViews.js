@@ -149,5 +149,58 @@ function displayOption() {
             inner = inner.concat("</tbody></table>");
             div.innerHTML = inner;
         });
+    }else if(select.value === "f_lata"){
+        query = 'SELECT f_lata_od_wydania_albumu(4) as "Album 4", f_lata_od_wydania_albumu(1) as "Album 1"';
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>Album 4</th><th scope='col'>Album 1</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["Album 4"] +
+                        "</td><td>" +
+                        res["rows"][i]["Album 1"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    }else if(select.value === "f_podsumowanie"){
+        query = 'SELECT f_album_podsumowanie()';
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>Podsumowanie</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["f_album_podsumowanie"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
+    }else if(select.value === "logi"){
+        query = 'SELECT * from logs;';
+        client.query(query, (err, res) => {
+            let inner =
+                "<table class='table'><thead><tr><th scope='col'>User</th><th scope='col'>Stara wartość</th><th scope='col'>Nowa wartość</th><th scope='col'>Timestamp</th></tr></thead><tbody>";
+            for (i = 0; i < res["rows"].length; i++) {
+                inner = inner.concat(
+                    "<tr><td>" +
+                        res["rows"][i]["uzytkownik"] +
+                        "</td><td>" +
+                        res["rows"][i]["stara_wartosc"] +
+                        "</td><td>" +
+                        res["rows"][i]["nowa_wartosc"] +
+                        "</td><td>" +
+                        res["rows"][i]["czas_zmiany"] +
+                        "</td></tr>"
+                );
+            }
+            inner = inner.concat("</tbody></table>");
+            div.innerHTML = inner;
+        });
     }
 }
