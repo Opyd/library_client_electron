@@ -29,6 +29,21 @@ function delWindow() {
     // window.openDevTools();
     window.loadFile("delWindow.html");
 }
+function logWindow() {
+    const window = new BrowserWindow({
+        width: 1200,
+        height: 800,
+        title: "Logowanie",
+        webPreferences: {
+            //preload: path.join(__dirname+"/JS", 'adding.js'),
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    // window.openDevTools();
+    window.openDevTools();
+    window.loadFile("logowanie.html");
+}
 function updateWindow() {
     const window = new BrowserWindow({
         width: 900,
@@ -60,7 +75,7 @@ function showWindow() {
 
 function createWindow() {
     const window = new BrowserWindow({
-        width: 500,
+        width: 800,
         height: 500,
         title: "Portal muzyczny",
         webPreferences: {
@@ -70,7 +85,7 @@ function createWindow() {
         },
     });
     window.loadFile("index.html");
-    //window.openDevTools();
+    window.openDevTools();
 }
 
 function showView(){
@@ -205,6 +220,12 @@ const mainMenuTemplate = [
                 label: "Aktualizuj wiersz",
                 click() {
                     updateView();
+                },
+            },
+            {
+                label: "Logowanie",
+                click() {
+                    logWindow();
                 },
             }
         ]

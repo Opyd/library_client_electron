@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <input type="text" id="login" placeholder="login" /><br />
+        <input type="text" id="password" placeholder="password" />
+        <button id="connect" onclick="connect()">Connect</button>
+        <br />
+        <button id="select" onclick="select()">Select</button>
+        <button id="insert" onclick="insert()">Insert</button>
+        <button id="update" onclick="update()">Update</button>
+        <button id="end" onclick="end()">End connection</button>
+        <script src="jquery.js"></script>
+        <script>
+            const { Client } = require("pg");
+            let client = null;
+            function connect() {
+                let login = document.getElementById("login").value;
+                let passwd = document.getElementById("password").value;
+                client = new Client({
+                    host: "127.0.0.1",
+                    port: 5432,
+                    database: "baza",
+                    user: login,
+                    password: passwd,
+                });
+                client.connect();
+            }
+
+            function select(){
+                let query = "SELECT * FROM gatunek"
+                client.query(query, (err,res)=>{
+                    if(err) console.log(err)
+                    return console.log(res)
+                })
+            }
+
+            function insert() {
+                let query =
+                    "INSERT INTO gatunek (nazwa_gatunku) values ('test')";
+                client.query(query, (err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    console.log(res);
+                });
+            }
+
+            
+            function update(){
+                let query =
+                    "UPDATE gatunek set nazwa_gatunku='zaktualizowana' where id_gatunku=1;";
+                client.query(query, (err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    console.log(res);
+                });
+            }
+
+            function end(){
+                client.end();
+            }
+
+            
+        </script>
+    </body>
+</html>
